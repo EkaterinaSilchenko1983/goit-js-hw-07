@@ -28,18 +28,21 @@ function onImageClick(evt) {
     return;
   }
   const currentImage = evt.target.dataset.source;
-  console.log(currentImage);
+
   const instance = basicLightbox.create(`
     <img src="${currentImage}">
 `);
 
   instance.show();
 
-  document.addEventListener('keydown', function (event) {
-    if (event.code === 'Escape') {
+  galleryEl.addEventListener('keydown', onEscape);
+
+  function onEscape(evt) {
+    if (evt.code === 'Escape') {
       instance.close();
+      galleryEl.removeEventListener('keydown', onEscape);
     }
-  });
+  }
 }
 
 // const markupCreate = () => {
